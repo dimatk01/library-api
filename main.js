@@ -5,13 +5,20 @@ const swaggerUi = require("swagger-ui-express");
 const path = require("path");
 const fs = require("fs");
 const setupRouter = require("./routes");
+const bodyParser = require('body-parser')
 dotenv.config();
 
 
 const app = express();
+
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 setupRouter(app)
 const swaggerPath =  path.resolve('docs', './docs.json');
 const swaggerDocument = fs.readFileSync(swaggerPath,'utf-8' );
+
+
 
 app.use('/docs', swaggerUi.serve,
     swaggerUi.setup(JSON.parse(swaggerDocument), { swaggerOptions: {

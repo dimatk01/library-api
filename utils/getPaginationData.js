@@ -4,7 +4,8 @@
 
         const { rows, count } = await model.findAndCountAll({
             limit: perPage,
-            offset: offset
+            offset: offset,
+            order: [['id', 'ASC']],
         });
 
         return {
