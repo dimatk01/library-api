@@ -1,17 +1,14 @@
 'use strict';
 
-import fs from 'fs';
-import path from 'path';
-import Sequelize from 'sequelize';
-import process from 'process';
-
-const __filename = new URL('', import.meta.url).pathname;
-const __dirname = path.dirname(__filename);
-
+const fs = require('fs');
+const path = require('path');
+const Sequelize = require('sequelize');
+const process = require('process');
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
-const { default: config } = await import(`../config.js`);
+const config = require(__dirname + './../config.js');
 const db = {};
+
 
 let sequelize;
 if (config.use_env_variable) {
@@ -44,4 +41,4 @@ Object.keys(db).forEach(modelName => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-export {db}
+module.exports =  db

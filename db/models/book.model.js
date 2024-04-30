@@ -1,13 +1,11 @@
-import Sequelize, {DataTypes} from 'sequelize';
-const sequelize = new Sequelize('postgres');
-const Book = sequelize.define(
-    'Book',
-    {
-        id: {
-            primaryKey: true,
-            autoIncrement: true,
-            allowNull: false,
-        },
+'use strict';
+const {
+    Model
+} = require('sequelize');
+module.exports = (sequelize, DataTypes) => {
+    class Book extends Model {
+    }
+    Book.init({
         title: {
             type: DataTypes.STRING,
         },
@@ -20,6 +18,10 @@ const Book = sequelize.define(
         genre: {
             type: DataTypes.STRING,
         },
-    },
+    }, {
+        sequelize,
+        modelName: 'Book',
+    });
 
-);
+    return Book;
+};

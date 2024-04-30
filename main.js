@@ -1,19 +1,20 @@
-import dotenv from 'dotenv';
-import express from "express";
-import errorMiddleware from './middlewares/error-middleware.js';
-import swaggerUi from "swagger-ui-express";
-import * as path from "node:path";
-import * as fs from "node:fs";
-
+const dotenv = require('dotenv');
+const express = require("express");
+const errorMiddleware = require("./middlewares/error-middleware.js");
+const swaggerUi = require("swagger-ui-express");
+const path = require("path");
+const fs = require("fs");
+const setupRouter = require("./routes");
 dotenv.config();
 
 
 const app = express();
-
+setupRouter(app)
 const swaggerPath =  path.resolve('docs', './docs.json');
 const swaggerDocument = fs.readFileSync(swaggerPath,'utf-8' );
 
-app.use('/docs', swaggerUi.serve,  swaggerUi.setup(JSON.parse(swaggerDocument), { swaggerOptions: {
+app.use('/docs', swaggerUi.serve,
+    swaggerUi.setup(JSON.parse(swaggerDocument), { swaggerOptions: {
         url: '/docs/docs.json',
     },}));
 
