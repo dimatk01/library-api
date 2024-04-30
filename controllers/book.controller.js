@@ -5,7 +5,8 @@ const generateResponse = require("../utils/generateResponse");
 
 
 const getAll = catchAsync(async (req, res) => {
-const data =  await BookService.getAll();
+ const {page = 1, perPage = 10} = req.query
+const data =  await BookService.getAll(page, perPage);
  return generateResponse(res, data)
 })
 
