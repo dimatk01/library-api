@@ -1,6 +1,5 @@
 
 module.exports= {
-
     username: 'postgres',
     password: 'root',
     database: 'test',

@@ -1,17 +1,14 @@
-import {HttpError} from "http-errors";
-import createHttpError from "http-errors";
-
+const httpStatus = require("http-status");
 
 const errorMiddleware = (err, req, res, next) => {
-    if(err instanceof HttpError){
+    if(err?.status) {
         return res.status(err.status).json({
             success: false,
             message: err.message,
             errors: err.errors
         });
     }
-
-    return createHttpError(500, 'Internal Server Error');
+    return res.status(httpStatus.INTERNAL_SERVER_ERROR).json({success: false, message: "Internal Server Error"});
 };
 
-export default errorMiddleware;
+module.exports= errorMiddleware;
