@@ -1,4 +1,4 @@
- async function getPaginationData (model, page, perPage) {
+ async function getPaginationData (model, page, perPage, options) {
     try {
         const offset = (page - 1) * perPage;
 
@@ -6,6 +6,7 @@
             limit: perPage,
             offset: offset,
             order: [['id', 'ASC']],
+            ...options
         });
 
         return {

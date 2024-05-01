@@ -11,7 +11,7 @@ const getUsers = catchAsync(async (req, res) => {
 
 const getUserById = catchAsync(async (req, res) => {
     const {id} = req.params
-    const user = await UserService.getUserById(id);
+    const {password, ...user} = await UserService.getUserById(id);
     return generateResponse(res, user);
 })
 
