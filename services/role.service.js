@@ -12,6 +12,7 @@ const createRole = async (role) =>{
     return await Role.create(role);
 }
 const updateRole = async (id, name) =>{
+    name = name.toLowerCase()
     return Role.update({where:{id}}, {name});
 }
 const deleteRole = async id =>{

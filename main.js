@@ -1,13 +1,11 @@
-const dotenv = require('dotenv');
 const express = require("express");
-const errorMiddleware = require("./middlewares/error-middleware.js");
+const errorMiddleware = require("./middlewares/error.middleware.js");
 const swaggerUi = require("swagger-ui-express");
 const path = require("path");
 const fs = require("fs");
 const setupRouter = require("./routes");
 const bodyParser = require('body-parser')
-dotenv.config();
-
+const config = require("./config");
 
 const app = express();
 
@@ -28,7 +26,7 @@ app.use('/docs', swaggerUi.serve,
 
 app.use(errorMiddleware);
 
-const PORT = process.env.API_PORT ?? 3000;
+const PORT = config?.port ?? 3000;
 
 /**
  * Запуск додатку

@@ -13,14 +13,18 @@ const getUserById = async (id) => {
 }
 
 const createUser = async ({username, password})=>{
+    const candidate = await User.findOne({where: {username}})
+    if (candidate) {
+        throw new Error('User already exists')
+    }
    const hashedPass = await bcrypt.hash(password, saltRounds)
     const userRole = await Role.findOrCreate({where: {name: 'user'}})
     return await User.create({username, password: hashedPass, roleId: userRole[0].id})
 }
 
 const updateUser =  (id, data) =>{
-    const username = data.username;
-    return  User.update({where:{id}}, {username})
+    const {username, roleId} = data;
+    return  User.update({where:{id}}, {username, roleId})
 }
 
 const deleteUser = async (id) => {

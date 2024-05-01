@@ -18,7 +18,7 @@ const getUserById = catchAsync(async (req, res) => {
 const createUser = catchAsync(async (req, res) => {
     const data =  await UserService.createUser(req.body);
     return generateResponse(res, data, CREATED)
-})
+}, 'Error save user, check credentials.')
 
 const updateUser = catchAsync(async (req, res) => {
     const {id} = req.params

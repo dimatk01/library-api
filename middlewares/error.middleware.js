@@ -1,7 +1,8 @@
 const httpStatus = require("http-status");
+const logger = require("../utils/logger");
 
 const errorMiddleware = (err, req, res, next) => {
-    console.log('errorMiddleware ', err)
+    logger.error(err);
     if(err?.status) {
         return res.status(err.status).json({
             success: false,
