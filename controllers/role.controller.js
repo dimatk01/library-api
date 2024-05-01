@@ -2,6 +2,7 @@ const catchAsync = require("../utils/catchAcync");
 const RoleService = require("../services/role.service");
 const generateResponse = require("../utils/generateResponse");
 const {NO_CONTENT, CREATED} = require("http-status");
+const {validationResult} = require("express-validator");
 
 
 const getRoles = catchAsync(async (req, res) => {
@@ -17,11 +18,19 @@ const getRoleById = catchAsync(async (req, res) => {
 })
 
 const createRole = catchAsync(async (req, res) => {
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        return  res.status(422).json({errors: errors.array()})
+    }
     const data =  await RoleService.createRole(req.body)
     return generateResponse(res, data, CREATED)
 })
 
 const updateRole = catchAsync(async (req, res) => {
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        return  res.status(422).json({errors: errors.array()})
+    }
     const {id} = req.params
      await RoleService.updateRole(req.body, Number(id))
     return generateResponse(res, {}, NO_CONTENT)

@@ -22,9 +22,12 @@ const createUser = async ({username, password})=>{
     return await User.create({username, password: hashedPass, roleId: userRole[0].id})
 }
 
-const updateUser =  (id, data) =>{
-    const {username, roleId} = data;
-    return  User.update({where:{id}}, {username, roleId})
+const updateUser = async (id, data) =>{
+    let hashedPass
+    if(data?.password) {
+        hashedPass = await bcrypt.hash(data.password, saltRounds)
+    }
+    return  User.update({where:{id}}, {...data, password: hashedPass})
 }
 
 const deleteUser = async (id) => {

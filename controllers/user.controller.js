@@ -2,6 +2,7 @@ const catchAsync = require("../utils/catchAcync");
 const generateResponse = require("../utils/generateResponse");
 const {NO_CONTENT, CREATED} = require("http-status");
 const UserService = require("../services/user.service");
+const {validationResult} = require("express-validator");
 
 const getUsers = catchAsync(async (req, res) => {
     const { page = 1, perPage = 10  } = req.query;
@@ -16,11 +17,19 @@ const getUserById = catchAsync(async (req, res) => {
 })
 
 const createUser = catchAsync(async (req, res) => {
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        return  res.status(422).json({errors: errors.array()})
+    }
     const data =  await UserService.createUser(req.body);
     return generateResponse(res, data, CREATED)
 }, 'Error save user, check credentials.')
 
 const updateUser = catchAsync(async (req, res) => {
+    const errors = validationResult(req)
+    if (!errors.isEmpty()) {
+        return  res.status(422).json({errors: errors.array()})
+    }
     const {id} = req.params
     const body = req.body;
     const user = await UserService.updateUser(id, body);
