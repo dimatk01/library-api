@@ -1,8 +1,9 @@
-const {OK} = require("http-status");
+const { OK } = require('http-status');
 
-function generateResponse (req, data,statusCode = OK ) {
-req.status(statusCode).json({
+function generateResponse(req, data, statusCode = OK) {
+  req.status(statusCode).json({
     success: true,
-    data
-})}
+    data,
+  });
+}
 module.exports = generateResponse;

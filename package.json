@@ -5,6 +5,7 @@
   "main": "main.js",
   "scripts": {
     "dev": "nodemon main.js",
+    "format": "prettier --write **/*.js",
     "migarate:up": "npx sequelize-cli db:migrate",
     "migrate:down": "npx sequelize-cli db:migrate:undo"
   },
@@ -27,6 +28,7 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.0",
+    "prettier": "^3.2.5",
     "sequelize-cli": "^6.6.2"
   }
 }
