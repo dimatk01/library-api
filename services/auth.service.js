@@ -2,21 +2,24 @@ const catchAsync = require("../utils/catchAcync");
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const config = require('../config');
+const User = require('../db/models/').User;
 const generateResponse = require("../utils/generateResponse");
+const {BAD_REQUEST} = require("http-status");
+const HttpError = require("../utils/httpError");
 
 const login = catchAsync(async (req, res) => {
     const {username, password} = req.body
-    const user = await User.findOne({username})
+    const user = await User.findOne({where:{username}})
     if (!user) {
-        throw new Error('User not found');
+       throw new HttpError(BAD_REQUEST, "Invalid credentials");
     }
-    const validPassword = bcrypt.compareSync(password, user.password)
+    const validPassword = await bcrypt.compare(password, user.password)
     if (!validPassword) {
-        throw new Error('Invalid password');
+        throw new HttpError(BAD_REQUEST, "Invalid credentials");
     }
     const token = generateAccessToken(user.id, user.roleId)
     return generateResponse(res, {token});
-}, "Invalid credentials")
+})
 
 const generateAccessToken = (id, roleId) => {
     const payload = {

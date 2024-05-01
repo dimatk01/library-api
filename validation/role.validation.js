@@ -1,7 +1,7 @@
 const {body} = require("express-validator");
 
 const createRoleValidation = [
-    body('username').notEmpty().withMessage('Role name must not be empty').isString().withMessage('Role name  must be a string')
+    body('name').notEmpty().withMessage('Role name must not be empty').isString().withMessage('Role name  must be a string')
 ];
 
 const updateRoleValidation = [

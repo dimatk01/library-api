@@ -2,6 +2,8 @@ const User = require('../db/models/').User;
 const Role = require('../db/models').Role;
 const getPaginationData = require("../utils/getPaginationData");
 const bcrypt = require('bcrypt');
+const HttpError = require("../utils/httpError");
+const {BAD_REQUEST} = require("http-status");
 const saltRounds = 10;
 
 const getUsers = async (page, perPage) =>{
@@ -15,7 +17,7 @@ const getUserById = async (id) => {
 const createUser = async ({username, password})=>{
     const candidate = await User.findOne({where: {username}})
     if (candidate) {
-        throw new Error('User already exists')
+        throw new HttpError(BAD_REQUEST, 'Check credentials')
     }
    const hashedPass = await bcrypt.hash(password, saltRounds)
     const userRole = await Role.findOrCreate({where: {name: 'user'}})
