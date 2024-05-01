@@ -1,7 +1,7 @@
 const catchAsync = require("../utils/catchAcync");
 const BookService = require("../services/book.service");
 const generateResponse = require("../utils/generateResponse");
-const {NO_CONTENT} = require("http-status");
+const {NO_CONTENT, CREATED} = require("http-status");
 
 
 
@@ -19,7 +19,7 @@ const {id} = req.params
 
 const createBook = catchAsync(async (req, res) => {
  const data = await BookService.createBook(req.body)
- return generateResponse(res, data)
+ return generateResponse(res, data, CREATED)
 })
 
 const updateBook = catchAsync(async (req, res) => {
