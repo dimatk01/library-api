@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "Title",
-    "description": "Title",
+    "title": "API для управління бібліотекою книг",
+    "description": "RESTful API для управління бібліотекою книг з ролями користувачів та обробкою помилок",
     "version": "1.0.0"
   },
   "servers": [
@@ -22,10 +22,6 @@
     {
       "name": "Roles",
       "description": "Operations related to roles"
-    },
-    {
-      "name": "Auth",
-      "description": "Auth routes"
     }
   ],
   "components": {
