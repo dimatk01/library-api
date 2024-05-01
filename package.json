@@ -5,6 +5,7 @@
   "main": "main.js",
   "scripts": {
     "dev": "nodemon main.js",
+    "start": "npm run migarate:up && node main.js",
     "format": "prettier --write **/*.js",
     "migarate:up": "npx sequelize-cli db:migrate",
     "migrate:down": "npx sequelize-cli db:migrate:undo"
