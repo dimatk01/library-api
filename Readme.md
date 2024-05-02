@@ -1,6 +1,15 @@
-# RESTful API для управління бібліотекою книг
+# RESTfull API для управління бібліотекою книг
 ## Опис проекту
-Даний проект є RESTful API для управління бібліотекою книг. API реалізовано на Node.js з використанням Express та Sequelize.
+Даний проект є RESTfull API для управління бібліотекою книг. API реалізовано на Node.js з використанням Express та Sequelize.
+Проект має докумнтацію за [адресою](http://13.49.114.29:3000/docs) (для роботи локально документації потрібно замінить у файлі /docs/docs.json =>  servers.url = http://localhost:port). База для тестів має двох користувачів user та admin.
+
+```bash
+# user
+ username: 'user', password: 'user_password'
+ 
+ #admin
+ username: 'admin', password: 'admin_password'
+```
 
 ## Installation
 
