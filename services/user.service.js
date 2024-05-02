@@ -35,7 +35,7 @@ const updateUser = async (id, data) => {
   if (data?.password) {
     hashedPass = await bcrypt.hash(data.password, saltRounds);
   }
-  return User.update({ where: { id } }, { ...data, password: hashedPass });
+  return User.update( { ...data, password: hashedPass }, { where: { id } });
 };
 
 const deleteUser = async (id) => {

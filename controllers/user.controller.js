@@ -13,7 +13,8 @@ const getUsers = catchAsync(async (req, res) => {
 
 const getUserById = catchAsync(async (req, res) => {
   const { id } = req.params;
-  const { password, ...user } = await UserService.getUserById(id);
+  const { dataValues } = await UserService.getUserById(id);
+  const {password, ...user} = dataValues
   return generateResponse(res, user);
 });
 
@@ -26,8 +27,9 @@ const createUser = catchAsync(async (req, res) => {
       errors.array(),
     );
   }
-  const data = await UserService.createUser(req.body);
-  return generateResponse(res, data, CREATED);
+  const {dataValues} = await UserService.createUser(req.body);
+ const {password, ...user} = dataValues
+  return generateResponse(res, user, CREATED);
 });
 
 const updateUser = catchAsync(async (req, res) => {
@@ -46,6 +48,7 @@ const updateUser = catchAsync(async (req, res) => {
 });
 
 const deleteUser = catchAsync(async (req, res) => {
+  const { id } = req.params;
   await UserService.deleteUser(id);
   return generateResponse(res, {}, NO_CONTENT);
 });

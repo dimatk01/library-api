@@ -40,7 +40,7 @@ const updateRole = catchAsync(async (req, res) => {
     );
   }
   const { id } = req.params;
-  await RoleService.updateRole(req.body, Number(id));
+  await RoleService.updateRole(Number(id), req.body);
   return generateResponse(res, {}, NO_CONTENT);
 });
 
